@@ -3,7 +3,7 @@
 This is a script to automate referee duties for Armor Critical.
 
 Duties include:
--Creating game matches based on player requests
+<li>-Creating game matches based on player requests</li>
 -Confirming the appropriate number of players have arrived
 -Starting the game
 -Pausing the game when requested
