@@ -10,5 +10,5 @@ Duties include:
 <li>Identifying half time and swapping teams & score accordingly</li>
 <li>Accurately uploading game results once the game has concluded & posting the link to players</li><br>
 
-Script is based on a Windows10 system, using Python 3.7.4 with Selenium as the prominent library.
+Script is based on a Windows10 system, using Python 3.7.4 with Selenium & pywinauto as the prominent libraries.
 <li>Reads .rec file (essentially a .txt file) that is automatically generated upon game entry & receives live game updates from the authoritative server in order to interpret game environment & make necessary commands</li>
