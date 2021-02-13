@@ -1,7 +1,6 @@
 """
 Functions to open AC, manage lobby chat, create a game, enter the game, send in-game messages, and upload replay file
 """
-#refbot.py (in development)
 from credentials import ac_logins, cta_logins, paths
 from itertools import combinations
 from pywinauto import Application
@@ -16,12 +15,12 @@ import pywinauto
 import time
 import datetime
         
-class RefBot():
+class AutoRef():
     def __init__(self):
         self.driver = None
         self.username = None
         self.chat_text = None
-        self.is_refbot_requested = None
+        self.is_autoref_requested = None
         self.hub = None
         self.game_password = "titan"
         self.elected_map = None
@@ -241,11 +240,11 @@ class RefBot():
             time.sleep(1)
         self.chat_msg("/clear")
         
-        self.is_refbot_requested = False
+        self.is_autoref_requested = False
         self.chat_msg("/topic " + str(datetime.datetime.now() + datetime.timedelta(hours=1)).split(".")[0][:-3] + " EST | RefBot is available. | Type 'refbot help' for an overview of how refbot works.")
         
         
-        while self.is_refbot_requested == False:
+        while self.is_autoref_requested == False:
             time.sleep(5)
             self.read_chat()
             start = datetime.datetime.now()
@@ -260,7 +259,7 @@ class RefBot():
                     if message[:13] == "refbot launch" and len(message.split(" ")) == 3:
                         if message.split(" ")[2] in self.map_key.keys():
                             self.elected_map = message.split(" ")[2]
-                            self.is_refbot_requested = True
+                            self.is_autoref_requested = True
                             self.chat_msg("Now hosting " + self.map_key[self.elected_map]["map_name"] + ".")
                             self.chat_msg("Please wait until refbot has entered before attempting to join the game.")
                             self.chat_msg("/topic " + str(datetime.datetime.now() + datetime.timedelta(hours=1)).split(".")[0][:-3] + " EST | RefBot is currently hosting and is unavailable.")
@@ -618,7 +617,7 @@ class RefBot():
     def explainer(self):
         """
         Summary:
-        Explains the mechanics of how refbot will work to the players
+        Explains the mechanics of how autoref will work to the players
     
         Parameters: 
         None
@@ -1271,26 +1270,26 @@ class RefBot():
 
 if __name__ == "__main__":
     #open armor critical
-    refbot = RefBot()
-    refbot.open_ac(ac_logins["A"][0], ac_logins["A"][1])
+    autoref = AutoRef()
+    autoref.open_ac(ac_logins["A"][0], ac_logins["A"][1])
     time.sleep(5)
 
     #manage launch
-    refbot.manage_launch()
+    autoref.manage_launch()
     
     #create game
-    refbot.create_game()
+    autoref.create_game()
     time.sleep(5)
     
     #refresh game list & enter the game
-    refbot.enter_game()
+    autoref.enter_game()
     
     #run the game
-    refbot.run_game()
+    autoref.run_game()
 
     #upload game if self.game_state["is_uploadable"] is true
-    if refbot.game_state["is_uploadable"] == True:
-        link = refbot.upload_game(cta_logins)
-        refbot.chat_msg(link)
+    if autoref.game_state["is_uploadable"] == True:
+        link = autoref.upload_game(cta_logins)
+        autoref.chat_msg(link)
     else:
-        refbot.chat_msg("Game was not completed and will not be uploaded.")
+        autoref.chat_msg("Game was not completed and will not be uploaded.")
